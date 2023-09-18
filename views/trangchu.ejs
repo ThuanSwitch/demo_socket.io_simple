@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+        var socket = io("http://localhost:3000");
+        $(document).ready(function(){
+            $("#do").click(function(){
+                socket.emit("client-send-color","red");
+            });
+            $("#xanh").click(function(){
+                socket.emit("client-send-color","blue");
+            });
+            $("#vang").click(function(){
+                socket.emit("client-send-color","yellow");
+            });
+        })
+        socket.on("Server-send-color",function(data){
+            $("#doi").css("background-color",data)
+        })
+        
+        
+    </script>
+    <style>
+        #do, #xanh, #vang, #doi {width: 300px; height: 70px;}
+        #do{background-color: red;}
+        #xanh{background-color: blue;}
+        #vang{background-color: yellow;}
+    </style>
+</head>
+<body>
+    <div id="do"></div>
+    <div id="xanh"></div>
+    <div id="vang"></div>
+    <div id="doi" style="background-color: black;"></div>
+</body>
+</html>
